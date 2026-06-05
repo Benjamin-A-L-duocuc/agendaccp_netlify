@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>{post.data.title}</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; }
+      .back { margin-bottom: 2rem; display: block; }
+    </style>
+  </head>
+  <body>
+    <a href="/" class="back">← Volver al inicio</a>
+    <h1>{post.data.title}</h1>
+    <p><em>Publicado el {post.data.date.toDateString()}</em></p>
+    <article>
+      <Content />
+    </article>
+  </body>
+</html>

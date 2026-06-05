@@ -1,0 +1,123 @@
+---
+import { getCollection } from 'astro:content';
+const posts = await getCollection('posts');
+---
+
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agenda Duoc UC Viña</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body { background-color: #071126; color: white; font-family: system-ui, -apple-system, sans-serif; }
+      .app-shell { max-width: 1200px; }
+      .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+      .logo-wrap { display: flex; align-items: center; gap: 1rem; }
+      .logo-box img { width: 60px; height: 60px; border-radius: 12px; }
+      .brand-title { font-size: 1.5rem; font-weight: bold; margin: 0; color: white; }
+      .brand-subtitle { font-size: 1rem; margin: 0; color: #aaa; }
+      
+      .card-custom {
+        background: #1a263d;
+        border: 1px solid #2d3d5a;
+        border-radius: 20px;
+        color: white;
+        transition: transform 0.2s ease;
+        height: 100%;
+      }
+      .card-custom:hover { transform: translateY(-5px); }
+      .place h3 { font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; }
+      .contact-description { color: #ccc; font-size: 0.9rem; text-align: center; margin-bottom: 1rem; }
+      .phone-number { font-size: 1.4rem; font-weight: bold; text-align: center; margin-bottom: 1rem; color: #fff; }
+      
+      .schedule-status { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.85rem; margin-bottom: 1rem; }
+      .status-dot { width: 8px; height: 8px; background: #4caf50; border-radius: 50%; }
+      .status-text { color: #aaa; }
+      
+      .schedule-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+      .chip { background: #2d3d5a; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; display: flex; gap: 8px; }
+      .chip-label { color: #888; }
+      .chip-time { color: white; font-weight: 500; }
+      
+      .slider-call {
+        background: linear-gradient(90deg, #007acc, #005fa3);
+        border-radius: 50px;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        transition: opacity 0.2s;
+      }
+      .slider-call:hover { opacity: 0.9; color: white; }
+      .slider-btn { background: white; color: #007acc; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    </style>
+  </head>
+  <body>
+    <main class="container py-4 app-shell">
+      <header class="header">
+        <div class="header-top">
+          <div class="logo-wrap">
+            <div class="logo-box">
+              <img src="https://agendavm.cl/assets/agenda-vm-logo-b.png" alt="Logo">
+            </div>
+            <div class="header-copy">
+              <h1 class="brand-title">Agenda Duoc UC • Sede San Andres De Concepcion</h1>
+              <p class="brand-subtitle">Números de asistencia y emergencia</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="row g-3">
+        {posts.map(post => (
+          <div class="col-12 col-md-6">
+            <article class="card card-custom p-3">
+              <div class="place text-center">
+                <h3>{post.data.title}</h3>
+              </div>
+              <div class="contact-description">
+                {post.data.description}
+              </div>
+              <div class="phone-number">
+                {post.data.phone}
+              </div>
+              <div class="schedule-status">
+                <span class="status-dot"></span>
+                <span class="status-text">{post.data.status || 'Servicio disponible'}</span>
+              </div>
+              <div class="schedule-chips">
+                {post.data.scheduleWeekdays && (
+                  <div class="chip">
+                    <span class="chip-label">Lun–Vie</span>
+                    <span class="chip-time">{post.data.scheduleWeekdays}</span>
+                  </div>
+                )}
+                {post.data.scheduleSaturday && (
+                  <div class="chip">
+                    <span class="chip-label">Sáb</span>
+                    <span class="chip-time">{post.data.scheduleSaturday}</span>
+                  </div>
+                )}
+                {post.data.scheduleSunday && (
+                  <div class="chip">
+                    <span class="chip-label">Dom</span>
+                    <span class="chip-time">{post.data.scheduleSunday}</span>
+                  </div>
+                )}
+              </div>
+              <a href={`tel:${post.data.phone?.replace(/\s+/g, '')}`} class="slider-call mt-3">
+                <div class="slider-text">Desliza para llamar →</div>
+                <div class="slider-btn">☎</div>
+              </a>
+            </article>
+          </div>
+        ))}
+      </section>
+    </main>
+  </body>
+</html>
