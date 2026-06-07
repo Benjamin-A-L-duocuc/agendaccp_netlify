@@ -7,68 +7,235 @@ const posts = await getCollection('posts');
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agenda Duoc UC Viña</title>
+    <title>Agenda Duoc UC Concepcion</title>
+    <meta name="theme-color" content="#071126" id="themeColorMeta">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body { background-color: #071126; color: white; font-family: system-ui, -apple-system, sans-serif; }
-      .app-shell { max-width: 1200px; }
-      .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
-      .logo-wrap { display: flex; align-items: center; gap: 1rem; }
-      .logo-box img { width: 60px; height: 60px; border-radius: 12px; }
-      .brand-title { font-size: 1.5rem; font-weight: bold; margin: 0; color: white; }
-      .brand-subtitle { font-size: 1rem; margin: 0; color: #aaa; }
-      
-      .card-custom {
-        background: #1a263d;
-        border: 1px solid #2d3d5a;
-        border-radius: 20px;
-        color: white;
-        transition: transform 0.2s ease;
-        height: 100%;
+    <style is:global>
+      /* =========================================================
+         VARIABLES GLOBALES
+         ========================================================= */
+      :root{
+        --bg:#f3f5f9;
+        --card:#ffffff;
+        --text:#102038;
+        --muted:#66768d;
+        --line:rgba(16,32,56,.08);
+        --shadow:0 14px 36px rgba(15,23,42,.08);
+        --header-a:#ffffff;
+        --header-b:#fff4cf;
+        --brand:#f4b400;
+        --brand-dark:#cf9700;
+        --slider-track:#e9edf4;
+        --slider-text:#516071;
+        --success:#22c55e;
+        --danger:#ef4444;
+        --place-color:#16325c;
+        --description-color:#4a5d73;
       }
-      .card-custom:hover { transform: translateY(-5px); }
-      .place h3 { font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; }
-      .contact-description { color: #ccc; font-size: 0.9rem; text-align: center; margin-bottom: 1rem; }
-      .phone-number { font-size: 1.4rem; font-weight: bold; text-align: center; margin-bottom: 1rem; color: #fff; }
-      
-      .schedule-status { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.85rem; margin-bottom: 1rem; }
-      .status-dot { width: 8px; height: 8px; background: #4caf50; border-radius: 50%; }
-      .status-text { color: #aaa; }
-      
-      .schedule-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
-      .chip { background: #2d3d5a; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; display: flex; gap: 8px; }
-      .chip-label { color: #888; }
-      .chip-time { color: white; font-weight: 500; }
-      
-      .slider-call {
-        background: linear-gradient(90deg, #007acc, #005fa3);
-        border-radius: 50px;
-        padding: 10px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+
+      [data-bs-theme="dark"]{
+        --bg:#030b18;
+        --card:#071126;
+        --text:#f8fbff;
+        --muted:#9cafc8;
+        --line:rgba(255,255,255,.08);
+        --shadow:0 18px 40px rgba(0,0,0,.35);
+        --header-a:#071126;
+        --header-b:#0b1831;
+        --brand:#f4b400;
+        --brand-dark:#d59d00;
+        --slider-track:#19263b;
+        --slider-text:#d4dceb;
+        --success:#22c55e;
+        --danger:#ef4444;
+        --place-color:#f4b400;
+        --description-color:#9fb0c7;
+      }
+
+      /* =========================================================
+         RESET / BASE
+         ========================================================= */
+      *{ box-sizing:border-box; }
+      body{
+        margin:0;
+        background: radial-gradient(circle at top left, rgba(244,180,0,.08), transparent 28%), linear-gradient(180deg, rgba(255,255,255,.12), transparent 20%), var(--bg);
+        color:var(--text);
+        font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        transition:background .25s ease, color .25s ease;
+      }
+      .app-shell{ max-width:920px; margin: 0 auto; }
+      a[href^="tel"]{ color:inherit; text-decoration:none; }
+      .phone-number, .phone-number a{ color:var(--text); text-decoration:none !important; -webkit-text-fill-color:currentColor; }
+
+      /* =========================================================
+         HEADER
+         ========================================================= */
+      .header{
+        background:linear-gradient(135deg, var(--header-a), var(--header-b));
+        border-radius:28px;
+        padding:18px;
+        margin-bottom:20px;
+        border:1px solid var(--line);
+        box-shadow:var(--shadow);
+      }
+      .header-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+      .logo-wrap{ display:flex; align-items:center; gap:14px; min-width:0; flex:1 1 auto; }
+      .logo-box{
+        width:78px; height:78px; border-radius:18px;
+        background:linear-gradient(135deg, var(--brand), var(--brand-dark));
+        display:flex; align-items:center; justify-content:center; overflow:hidden;
+        box-shadow:0 12px 24px rgba(244,180,0,.24); flex-shrink:0;
+      }
+      .logo-img{ width:100%; height:100%; object-fit:cover; display:block; }
+      .header-copy{ min-width:0; }
+      .brand-title{ margin:0; font-size:1.35rem; font-weight:900; line-height:1.08; color:#EBAD01; }
+      .brand-subtitle{ margin:6px 0 0; font-size:1rem; line-height:1.35; color:var(--muted); }
+      .header-actions{ display:flex; align-items:flex-start; justify-content:flex-end; flex-shrink:0; padding-top:2px; }
+      .duoc-logo{ width:100%; max-width:360px; }
+      .duoc-logo-img{ display:block; width:100%; height:auto; }
+      [data-bs-theme="dark"] .duoc-logo-img{ filter:drop-shadow(0 2px 8px rgba(0,0,0,.35)); }
+
+      /* =========================================================
+         SWITCH DE TEMA
+         ========================================================= */
+      .theme-switch{ border:none; background:transparent; padding:0; cursor:pointer; line-height:0; -webkit-tap-highlight-color:transparent; }
+      .theme-switch-track{
+        position:relative; width:72px; height:38px; display:flex; align-items:center; justify-content:space-between; padding:0 9px; border-radius:999px;
+        background:linear-gradient(135deg, #08356f 0%, #031a3c 100%);
+        box-shadow:0 4px 10px rgba(0,0,0,.24), inset 0 1px 2px rgba(255,255,255,.03);
+        transition:background .28s ease, box-shadow .28s ease, transform .2s ease;
+      }
+      [data-bs-theme="dark"] .theme-switch-track{ background:linear-gradient(135deg, #072d5e 0%, #021229 100%); box-shadow:0 5px 14px rgba(0,0,0,.46), inset 0 1px 3px rgba(255,255,255,.12); }
+      [data-bs-theme="light"] .theme-switch-track{ box-shadow:0 4px 10px rgba(0,0,0,.15), inset 0 1px 3px rgba(255,215,0,.22); }
+      .theme-switch:active .theme-switch-track{ transform:scale(.98); }
+      .theme-switch-thumb{
+        position:absolute; top:3px; left:3px; width:32px; height:32px; border-radius:50%;
+        background:linear-gradient(180deg, #ffffff 0%, #eef2f7 100%);
+        box-shadow:0 4px 10px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.92);
+        transition:transform .32s cubic-bezier(.22,1,.36,1);
+      }
+      [data-bs-theme="dark"] .theme-switch-thumb{ transform:translateX(34px); }
+      .theme-icon{ position:relative; z-index:2; width:14px; height:14px; display:flex; align-items:center; justify-content:center; transition:opacity .2s ease, transform .2s ease, color .2s ease; }
+      .theme-icon svg{ width:100%; height:100%; display:block; }
+      [data-bs-theme="light"] .moon-icon{ color:rgba(255,255,255,.98); opacity:1; transform:scale(1); filter:drop-shadow(0 0 1px rgba(255,255,255,.35)); }
+      [data-bs-theme="light"] .sun-icon{ color:rgba(255,255,255,.65); opacity:.8; transform:scale(.96); }
+      [data-bs-theme="dark"] .moon-icon{ color:rgba(255,255,255,.65); opacity:.8; transform:scale(.96); }
+      [data-bs-theme="dark"] .sun-icon{ color:rgba(255,255,255,.98); opacity:1; transform:scale(1); filter:drop-shadow(0 0 1px rgba(255,255,255,.35)); }
+
+      /* =========================================================
+         TARJETAS
+         ========================================================= */
+      .card-custom{ border-radius:24px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow); transition:transform .2s ease, box-shadow .2s ease; }
+      .card-custom:hover{ transform:translateY(-2px); }
+      .place h3{ margin:0 0 6px; font-size:1.45rem; font-weight:400; color:var(--place-color); }
+      .contact-description{ max-width:92%; margin:4px auto 6px; text-align:center; font-size:.95rem; font-weight:500; line-height:1.4; color:var(--description-color); opacity:.9; }
+      .phone-number{ margin:6px 0 8px; font-size:2rem; font-weight:900; text-align:center; letter-spacing:.03em; line-height:1.1; color:var(--text); }
+
+      /* =========================================================
+         ESTADO DE HORARIO
+         ========================================================= */
+      .schedule-status{ display:flex; justify-content:center; align-items:center; gap:7px; margin:6px 0 8px; font-size:.85rem; font-weight:700; color:var(--muted); }
+      .status-dot{ width:8px; height:8px; border-radius:999px; background:#94a3b8; }
+      .schedule-status.is-open{ color:#15803d; }
+      .schedule-status.is-open .status-dot{ background:#22c55e; box-shadow:0 0 0 4px rgba(34,197,94,.14); }
+      .schedule-status.is-closed{ color:#b91c1c; }
+      .schedule-status.is-closed .status-dot{ background:#ef4444; box-shadow:0 0 0 4px rgba(239,68,68,.12); }
+      [data-bs-theme="dark"] .schedule-status.is-open{ color:#86efac; }
+      [data-bs-theme="dark"] .schedule-status.is-closed{ color:#fca5a5; }
+
+      /* =========================================================
+         CHIPS DE HORARIO
+         ========================================================= */
+      .schedule-chips{ display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:6px; margin-bottom:12px; }
+      .chip{
+        display:flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; font-size:.8rem; font-weight:600;
+        border:1px solid var(--line); background:rgba(255,255,255,.6); color:#2f3e55; backdrop-filter:blur(6px);
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 2px 6px rgba(0,0,0,.06);
+      }
+      [data-bs-theme="dark"] .chip{ background:rgba(255,255,255,.06); color:#cbd6e6; box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 4px 10px rgba(0,0,0,.25); }
+      .chip-label{ opacity:.75; font-weight:500; }
+      .chip-time{ font-weight:700; }
+
+      /* =========================================================
+         SLIDER PARA LLAMAR
+         ========================================================= */
+      .slider-call{
+        position:relative; height:72px; margin-top:14px; border-radius:999px;
+        background:linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,.02)), var(--slider-track);
+        overflow:hidden; border:1px solid var(--line); user-select:none; -webkit-user-select:none; touch-action:pan-y;
         cursor: pointer;
-        text-decoration: none;
-        color: white;
-        font-weight: bold;
-        transition: opacity 0.2s;
       }
-      .slider-call:hover { opacity: 0.9; color: white; }
-      .slider-btn { background: white; color: #007acc; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+      .slider-text{
+        position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+        text-align:center; color:var(--slider-text); font-size:1rem; font-weight:600; padding:0 78px; z-index:1; transition:color .2s ease, opacity .2s ease;
+      }
+      .slider-btn{
+        position:absolute; top:6px; left:6px; width:60px; height:60px; border-radius:50%;
+        display:flex; align-items:center; justify-content:center;
+        background:linear-gradient(135deg, var(--brand), var(--brand-dark));
+        color:#ffffff; font-size:24px; z-index:2; box-shadow:0 10px 22px rgba(0,0,0,.18), inset 0 2px 0 rgba(255,255,255,.22);
+        will-change:transform;
+      }
+      .slider-call.active .slider-text{ color:var(--success); }
+      .slider-call.active .slider-btn{ background:linear-gradient(135deg, #25cf68, #17a34a); }
+
+      @media (max-width: 767.98px){
+        .app-shell{ padding-top:1rem !important; padding-bottom:1.5rem !important; }
+        .header{ padding:16px; border-radius:24px; }
+        .header-top{ flex-direction:column; align-items:stretch; gap:14px; }
+        .logo-wrap{ width:100%; align-items:center; gap:12px; }
+        .logo-box{ width:64px; height:64px; border-radius:16px; }
+        .brand-title{ font-size:1.02rem; line-height:1.1; }
+        .brand-subtitle{ font-size:.9rem; line-height:1.32; margin-top:5px; }
+        .header-actions{ width:100%; justify-content:flex-end; padding-top:0; }
+        .theme-switch-track{ width:68px; height:36px; padding:0 8px; }
+        .theme-switch-thumb{ width:30px; height:30px; }
+        [data-bs-theme="dark"] .theme-switch-thumb{ transform:translateX(32px); }
+        .theme-icon{ width:13px; height:13px; }
+        .duoc-logo{ max-width:240px; }
+        .place h3{ font-size:1.35rem; }
+        .contact-description{ font-size:.92rem; }
+        .phone-number{ font-size:2rem; }
+        .slider-call{ height:76px; }
+        .slider-btn{ width:64px; height:64px; font-size:25px; }
+        .slider-text{ font-size:.95rem; padding:0 84px; }
+      }
     </style>
   </head>
   <body>
     <main class="container py-4 app-shell">
       <header class="header">
+        <div class="row mb-3">
+          <div class="col-12 col-md-6">
+            <div class="duoc-logo">
+              <!-- <-- <img id="duocThemeLogo" src="/assets/logo-duoc-sedesanandres.svg" alt="Duoc UC" class="duoc-logo"> -->
+            </div>
+          </div>
+        </div>
+
         <div class="header-top">
           <div class="logo-wrap">
             <div class="logo-box">
-              <img src="https://agendavm.cl/assets/agenda-vm-logo-b.png" alt="Logo">
+              <!-- <img src="/assets/agenda-vm-logo-b.png" alt="Agenda Duoc UC" class="logo-img"> -->
             </div>
             <div class="header-copy">
-              <h1 class="brand-title">Agenda Duoc UC • Sede San Andres De Concepcion</h1>
+              <h1 class="brand-title">Agenda Duoc UC • Sede San Andrés de Concepción</h1>
               <p class="brand-subtitle">Números de asistencia y emergencia</p>
             </div>
+          </div>
+
+          <div class="header-actions">
+            <button class="theme-switch" id="themeToggle" type="button" aria-label="Cambiar tema">
+              <span class="theme-switch-track">
+                <span class="theme-icon moon-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.8 8.8 0 1 0 20 14.2Z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </span>
+                <span class="theme-icon sun-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2.2"></circle><path d="M12 2.5V5M12 19V21.5M21.5 12H19M5 12H2.5M18.7 5.3L17 7M7 17L5.3 18.7M18.7 18.7L17 17M7 7L5.3 5.3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                </span>
+                <span class="theme-switch-thumb"></span>
+              </span>
+            </button>
           </div>
         </div>
       </header>
@@ -86,9 +253,12 @@ const posts = await getCollection('posts');
               <div class="phone-number">
                 {post.data.phone}
               </div>
-              <div class="schedule-status">
+              <div class="schedule-status" 
+                   data-open-weekdays={post.data.scheduleWeekdays} 
+                   data-open-saturday={post.data.scheduleSaturday} 
+                   data-open-sunday={post.data.scheduleSunday}>
                 <span class="status-dot"></span>
-                <span class="status-text">{post.data.status || 'Servicio disponible'}</span>
+                <span class="status-text">Cargando...</span>
               </div>
               <div class="schedule-chips">
                 {post.data.scheduleWeekdays && (
@@ -110,14 +280,150 @@ const posts = await getCollection('posts');
                   </div>
                 )}
               </div>
-              <a href={`tel:${post.data.phone?.replace(/\s+/g, '')}`} class="slider-call mt-3">
+              <div class="slider-call mt-3" data-phone={post.data.phone?.replace(/\s+/g, '')}>
                 <div class="slider-text">Desliza para llamar →</div>
                 <div class="slider-btn">☎</div>
-              </a>
+              </div>
             </article>
           </div>
         ))}
       </section>
     </main>
+
+    <script>
+      const root = document.documentElement;
+      const toggleBtn = document.getElementById('themeToggle');
+      const themeMeta = document.getElementById('themeColorMeta');
+      const duocThemeLogo = document.getElementById('duocThemeLogo');
+
+      function updateThemeLogo(theme: string) {
+        if (!duocThemeLogo) return;
+        const lightSrc = duocThemeLogo.dataset.logoLight;
+        const darkSrc = duocThemeLogo.dataset.logoDark;
+        duocThemeLogo.src = theme === 'dark' ? darkSrc : lightSrc;
+      }
+
+      function applyTheme(theme: string) {
+        root.setAttribute('data-bs-theme', theme);
+        localStorage.setItem('duoc-theme', theme);
+        if (themeMeta) themeMeta.setAttribute('content', theme === 'dark' ? '#071126' : '#f4b400');
+        updateThemeLogo(theme);
+      }
+
+      const savedTheme = localStorage.getItem('duoc-theme');
+      if (savedTheme) applyTheme(savedTheme);
+      else applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const currentTheme = root.getAttribute('data-bs-theme');
+          applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+      }
+
+      function timeToMinutes(time) {
+        if(!time) return 0;
+        const [hours, minutes] = time.split(':').map(Number);
+        return hours * 60 + minutes;
+      }
+
+      function isWithinRange(range, currentMinutes) {
+        if (!range) return false;
+        const [start, end] = range.split('-');
+        return currentMinutes >= timeToMinutes(start) && currentMinutes <= timeToMinutes(end);
+      }
+
+      function updateScheduleStatus() {
+        const now = new Date();
+        const day = now.getDay();
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+        document.querySelectorAll('.schedule-status').forEach((status) => {
+          const card = status.closest('.card-custom');
+          const title = (card?.querySelector('.place h3')?.textContent || '').toLowerCase();
+          const phone = (card?.querySelector('.phone-number')?.textContent || '').replace(/\s/g, '');
+          
+          const isAlwaysOpen = status.dataset.open24 === 'true' || title.includes('urgencia de salud mental') || phone.includes('225157007');
+          
+          let available = false;
+          if (isAlwaysOpen) {
+            available = true;
+          } else {
+            let range = null;
+            if (day >= 1 && day <= 5) range = status.dataset.openWeekdays;
+            else if (day === 6) range = status.dataset.openSaturday;
+            else if (day === 0) range = status.dataset.openSunday;
+            available = isWithinRange(range, currentMinutes);
+          }
+
+          status.classList.toggle('is-open', available);
+          status.classList.toggle('is-closed', !available);
+          const text = status.querySelector('.status-text');
+          if (text) text.textContent = available ? 'Servicio disponible' : 'Servicio fuera de horario';
+        });
+      }
+
+      updateScheduleStatus();
+      setInterval(updateScheduleStatus, 60000);
+
+      document.querySelectorAll('.slider-call').forEach((slider) => {
+        const btn = slider.querySelector('.slider-btn');
+        const label = slider.querySelector('.slider-text');
+        let dragging = false, startX = 0, currentX = 0, callLocked = false;
+
+        const maxX = () => slider.clientWidth - btn.clientWidth - 12;
+        const setX = (x) => {
+          const bounded = Math.max(0, Math.min(x, maxX()));
+          btn.style.transform = `translateX(${bounded}px)`;
+          currentX = bounded;
+        };
+
+        const reset = () => {
+          dragging = false;
+          if (callLocked) return;
+          btn.style.transition = 'transform .25s ease';
+          setX(0);
+          slider.classList.remove('active');
+          label.textContent = 'Desliza para llamar →';
+          setTimeout(() => { btn.style.transition = ''; }, 250);
+        };
+
+        const confirmCall = () => {
+          if (callLocked) return;
+          callLocked = true; dragging = false;
+          slider.classList.add('active');
+          label.textContent = 'Llamando…';
+          setX(maxX());
+          setTimeout(() => { window.location.href = `tel:${slider.dataset.phone}`; }, 320);
+          setTimeout(() => {
+            btn.style.transition = 'transform .25s ease';
+            setX(0);
+            slider.classList.remove('active');
+            label.textContent = 'Desliza para llamar →';
+            setTimeout(() => { btn.style.transition = ''; }, 250);
+            callLocked = false;
+          }, 2200);
+        };
+
+        const pointerDown = (clientX) => {
+          if (callLocked) return;
+          dragging = true; startX = clientX - currentX; btn.style.transition = 'none';
+        };
+
+        const pointerMove = (clientX) => {
+          if (!dragging || callLocked) return;
+          const x = clientX - startX;
+          setX(x);
+          if (currentX >= maxX() - 8) confirmCall();
+        };
+
+        btn.addEventListener('mousedown', (e) => pointerDown(e.clientX));
+        window.addEventListener('mousemove', (e) => pointerMove(e.clientX));
+        window.addEventListener('mouseup', () => { if (dragging && !callLocked) reset(); });
+        btn.addEventListener('touchstart', (e) => pointerDown(e.touches[0].clientX), { passive: true });
+        window.addEventListener('touchmove', (e) => pointerMove(e.touches[0].clientX), { passive: true });
+        window.addEventListener('touchend', () => { if (dragging && !callLocked) reset(); });
+      });
+    </script>
   </body>
 </html>
