@@ -1,0 +1,63 @@
+---
+interface Props {
+  post: {
+    data: {
+      title: string;
+      description?: string;
+      phone?: string;
+      scheduleWeekdays?: string;
+      scheduleSaturday?: string;
+      scheduleSunday?: string;
+      status?: string;
+    }
+  }
+}
+
+const { post } = Astro.props;
+const { data } = post;
+---
+
+<div class="col-12 col-md-6">
+  <article class="card card-custom p-3">
+    <div class="place text-center">
+      <h3>{data.title}</h3>
+    </div>
+    <div class="contact-description">
+      {data.description || ''}
+    </div>
+    <div class="phone-number">
+      {data.phone || 'No disponible'}
+    </div>
+    <div class="schedule-status" 
+         data-open-weekdays={data.scheduleWeekdays} 
+         data-open-saturday={data.scheduleSaturday} 
+         data-open-sunday={data.scheduleSunday}>
+      <span class="status-dot"></span>
+      <span class="status-text">Cargando...</span>
+    </div>
+    <div class="schedule-chips">
+      {data.scheduleWeekdays && (
+        <div class="chip">
+          <span class="chip-label">Lun–Vie</span>
+          <span class="chip-time">{data.scheduleWeekdays}</span>
+        </div>
+      )}
+      {data.scheduleSaturday && (
+        <div class="chip">
+          <span class="chip-label">Sáb</span>
+          <span class="chip-time">{data.scheduleSaturday}</span>
+        </div>
+      )}
+      {data.scheduleSunday && (
+        <div class="chip">
+          <span class="chip-label">Dom</span>
+          <span class="chip-time">{data.scheduleSunday}</span>
+        </div>
+      )}
+    </div>
+    <div class="slider-call mt-3" data-phone={data.phone?.replace(/\s+/g, '')}>
+      <div class="slider-text">Desliza para llamar →</div>
+      <div class="slider-btn">☎</div>
+    </div>
+  </article>
+</div>

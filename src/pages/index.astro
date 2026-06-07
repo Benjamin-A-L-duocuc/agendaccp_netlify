@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import ContactCard from '../components/ContactCard.astro';
 const posts = await getCollection('posts');
 ---
 
@@ -7,7 +8,7 @@ const posts = await getCollection('posts');
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agenda Duoc UC Concepcion</title>
+    <title>Sede San Andrés de Concepción</title>
     <meta name="theme-color" content="#071126" id="themeColorMeta">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style is:global>
@@ -208,7 +209,7 @@ const posts = await getCollection('posts');
         <div class="row mb-3">
           <div class="col-12 col-md-6">
             <div class="duoc-logo">
-              <!-- <-- <img id="duocThemeLogo" src="/assets/logo-duoc-sedesanandres.svg" alt="Duoc UC" class="duoc-logo"> -->
+              <img id="duocThemeLogo" src="/assets/duocuc-logo-dark-b.png" alt="Duoc UC" class="duoc-logo-img" data-logo-light="/assets/duocuc-logo-light-b.png" data-logo-dark="/assets/duocuc-logo-dark-b.png">
             </div>
           </div>
         </div>
@@ -216,7 +217,7 @@ const posts = await getCollection('posts');
         <div class="header-top">
           <div class="logo-wrap">
             <div class="logo-box">
-              <!-- <img src="/assets/agenda-vm-logo-b.png" alt="Agenda Duoc UC" class="logo-img"> -->
+              <img src="/assets/agenda-vm-logo-b.png" alt="Agenda Duoc UC" class="logo-img">
             </div>
             <div class="header-copy">
               <h1 class="brand-title">Agenda Duoc UC • Sede San Andrés de Concepción</h1>
@@ -242,50 +243,7 @@ const posts = await getCollection('posts');
 
       <section class="row g-3">
         {posts.map(post => (
-          <div class="col-12 col-md-6">
-            <article class="card card-custom p-3">
-              <div class="place text-center">
-                <h3>{post.data.title}</h3>
-              </div>
-              <div class="contact-description">
-                {post.data.description}
-              </div>
-              <div class="phone-number">
-                {post.data.phone}
-              </div>
-              <div class="schedule-status" 
-                   data-open-weekdays={post.data.scheduleWeekdays} 
-                   data-open-saturday={post.data.scheduleSaturday} 
-                   data-open-sunday={post.data.scheduleSunday}>
-                <span class="status-dot"></span>
-                <span class="status-text">Cargando...</span>
-              </div>
-              <div class="schedule-chips">
-                {post.data.scheduleWeekdays && (
-                  <div class="chip">
-                    <span class="chip-label">Lun–Vie</span>
-                    <span class="chip-time">{post.data.scheduleWeekdays}</span>
-                  </div>
-                )}
-                {post.data.scheduleSaturday && (
-                  <div class="chip">
-                    <span class="chip-label">Sáb</span>
-                    <span class="chip-time">{post.data.scheduleSaturday}</span>
-                  </div>
-                )}
-                {post.data.scheduleSunday && (
-                  <div class="chip">
-                    <span class="chip-label">Dom</span>
-                    <span class="chip-time">{post.data.scheduleSunday}</span>
-                  </div>
-                )}
-              </div>
-              <div class="slider-call mt-3" data-phone={post.data.phone?.replace(/\s+/g, '')}>
-                <div class="slider-text">Desliza para llamar →</div>
-                <div class="slider-btn">☎</div>
-              </div>
-            </article>
-          </div>
+          <ContactCard post={post} />
         ))}
       </section>
     </main>
@@ -294,12 +252,12 @@ const posts = await getCollection('posts');
       const root = document.documentElement;
       const toggleBtn = document.getElementById('themeToggle');
       const themeMeta = document.getElementById('themeColorMeta');
-      const duocThemeLogo = document.getElementById('duocThemeLogo');
+      const duocThemeLogo = document.getElementById('duocThemeLogo') as HTMLImageElement | null;
 
       function updateThemeLogo(theme: string) {
         if (!duocThemeLogo) return;
-        const lightSrc = duocThemeLogo.dataset.logoLight;
-        const darkSrc = duocThemeLogo.dataset.logoDark;
+        const lightSrc = duocThemeLogo.dataset.logoLight || '';
+        const darkSrc = duocThemeLogo.dataset.logoDark || '';
         duocThemeLogo.src = theme === 'dark' ? darkSrc : lightSrc;
       }
 
@@ -316,18 +274,18 @@ const posts = await getCollection('posts');
 
       if (toggleBtn) {
         toggleBtn.addEventListener('click', () => {
-          const currentTheme = root.getAttribute('data-bs-theme');
+          const currentTheme = root.getAttribute('data-bs-theme') || 'dark';
           applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
         });
       }
 
-      function timeToMinutes(time) {
+      function timeToMinutes(time: string | null | undefined) {
         if(!time) return 0;
         const [hours, minutes] = time.split(':').map(Number);
         return hours * 60 + minutes;
       }
 
-      function isWithinRange(range, currentMinutes) {
+      function isWithinRange(range: string | null | undefined, currentMinutes: number) {
         if (!range) return false;
         const [start, end] = range.split('-');
         return currentMinutes >= timeToMinutes(start) && currentMinutes <= timeToMinutes(end);
@@ -339,26 +297,27 @@ const posts = await getCollection('posts');
         const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
         document.querySelectorAll('.schedule-status').forEach((status) => {
-          const card = status.closest('.card-custom');
+          const element = status as HTMLElement;
+          const card = element.closest('.card-custom');
           const title = (card?.querySelector('.place h3')?.textContent || '').toLowerCase();
           const phone = (card?.querySelector('.phone-number')?.textContent || '').replace(/\s/g, '');
           
-          const isAlwaysOpen = status.dataset.open24 === 'true' || title.includes('urgencia de salud mental') || phone.includes('225157007');
+          const isAlwaysOpen = element.dataset.open24 === 'true' || title.includes('urgencia de salud mental') || phone.includes('225157007');
           
           let available = false;
           if (isAlwaysOpen) {
             available = true;
           } else {
             let range = null;
-            if (day >= 1 && day <= 5) range = status.dataset.openWeekdays;
-            else if (day === 6) range = status.dataset.openSaturday;
-            else if (day === 0) range = status.dataset.openSunday;
+            if (day >= 1 && day <= 5) range = element.dataset.openWeekdays;
+            else if (day === 6) range = element.dataset.openSaturday;
+            else if (day === 0) range = element.dataset.openSunday;
             available = isWithinRange(range, currentMinutes);
           }
 
-          status.classList.toggle('is-open', available);
-          status.classList.toggle('is-closed', !available);
-          const text = status.querySelector('.status-text');
+          element.classList.toggle('is-open', available);
+          element.classList.toggle('is-closed', !available);
+          const text = element.querySelector('.status-text');
           if (text) text.textContent = available ? 'Servicio disponible' : 'Servicio fuera de horario';
         });
       }
@@ -367,61 +326,66 @@ const posts = await getCollection('posts');
       setInterval(updateScheduleStatus, 60000);
 
       document.querySelectorAll('.slider-call').forEach((slider) => {
-        const btn = slider.querySelector('.slider-btn');
-        const label = slider.querySelector('.slider-text');
+        const sliderEl = slider as HTMLElement;
+        const btn = sliderEl.querySelector('.slider-btn') as HTMLElement | null;
+        const label = sliderEl.querySelector('.slider-text') as HTMLElement | null;
         let dragging = false, startX = 0, currentX = 0, callLocked = false;
 
-        const maxX = () => slider.clientWidth - btn.clientWidth - 12;
-        const setX = (x) => {
+        const maxX = () => sliderEl.clientWidth - (btn?.clientWidth || 0) - 12;
+        const setX = (x: number) => {
           const bounded = Math.max(0, Math.min(x, maxX()));
-          btn.style.transform = `translateX(${bounded}px)`;
+          if (btn) btn.style.transform = `translateX(${bounded}px)`;
           currentX = bounded;
         };
 
         const reset = () => {
           dragging = false;
           if (callLocked) return;
-          btn.style.transition = 'transform .25s ease';
+          if (btn) btn.style.transition = 'transform .25s ease';
           setX(0);
-          slider.classList.remove('active');
-          label.textContent = 'Desliza para llamar →';
-          setTimeout(() => { btn.style.transition = ''; }, 250);
+          sliderEl.classList.remove('active');
+          if (label) label.textContent = 'Desliza para llamar →';
+          setTimeout(() => { if (btn) btn.style.transition = ''; }, 250);
         };
 
         const confirmCall = () => {
           if (callLocked) return;
           callLocked = true; dragging = false;
-          slider.classList.add('active');
-          label.textContent = 'Llamando…';
+          sliderEl.classList.add('active');
+          if (label) label.textContent = 'Llamando…';
           setX(maxX());
-          setTimeout(() => { window.location.href = `tel:${slider.dataset.phone}`; }, 320);
+          setTimeout(() => { window.location.href = `tel:${sliderEl.dataset.phone}`; }, 320);
           setTimeout(() => {
-            btn.style.transition = 'transform .25s ease';
+            if (btn) btn.style.transition = 'transform .25s ease';
             setX(0);
-            slider.classList.remove('active');
-            label.textContent = 'Desliza para llamar →';
-            setTimeout(() => { btn.style.transition = ''; }, 250);
+            sliderEl.classList.remove('active');
+            if (label) label.textContent = 'Desliza para llamar →';
+            setTimeout(() => { if (btn) btn.style.transition = ''; }, 250);
             callLocked = false;
           }, 2200);
         };
 
-        const pointerDown = (clientX) => {
+        const pointerDown = (clientX: number) => {
           if (callLocked) return;
-          dragging = true; startX = clientX - currentX; btn.style.transition = 'none';
+          dragging = true; startX = clientX - currentX; 
+          if (btn) btn.style.transition = 'none';
         };
 
-        const pointerMove = (clientX) => {
+        const pointerMove = (clientX: number) => {
           if (!dragging || callLocked) return;
           const x = clientX - startX;
           setX(x);
           if (currentX >= maxX() - 8) confirmCall();
         };
 
-        btn.addEventListener('mousedown', (e) => pointerDown(e.clientX));
-        window.addEventListener('mousemove', (e) => pointerMove(e.clientX));
+        if (btn) {
+          btn.addEventListener('mousedown', (e: MouseEvent) => pointerDown(e.clientX));
+          btn.addEventListener('touchstart', (e: TouchEvent) => pointerDown(e.touches[0].clientX), { passive: true });
+        }
+        
+        window.addEventListener('mousemove', (e: MouseEvent) => pointerMove(e.clientX));
         window.addEventListener('mouseup', () => { if (dragging && !callLocked) reset(); });
-        btn.addEventListener('touchstart', (e) => pointerDown(e.touches[0].clientX), { passive: true });
-        window.addEventListener('touchmove', (e) => pointerMove(e.touches[0].clientX), { passive: true });
+        window.addEventListener('touchmove', (e: TouchEvent) => pointerMove(e.touches[0].clientX), { passive: true });
         window.addEventListener('touchend', () => { if (dragging && !callLocked) reset(); });
       });
     </script>
