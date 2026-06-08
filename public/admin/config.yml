@@ -1,0 +1,22 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Contactos"
+    folder: "src/content/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Título", name: "title", widget: "string", required: true }
+      - { label: "Descripción", name: "description", widget: "text", required: false }
+      - { label: "Teléfono", name: "phone", widget: "string", required: false }
+      - { label: "Horario Lun–Vie", name: "scheduleWeekdays", widget: "string", required: false }
+      - { label: "Horario Sáb", name: "scheduleSaturday", widget: "string", required: false }
+      - { label: "Horario Dom", name: "scheduleSunday", widget: "string", required: false }
+      - { label: "Estado", name: "status", widget: "string", required: false }
+      - { label: "Cuerpo", name: "body", widget: "markdown", required: false }
