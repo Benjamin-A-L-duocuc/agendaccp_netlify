@@ -1,10 +1,10 @@
-// .tina/config.ts
+// tina/config.ts
 import { defineConfig } from "tinacms";
-var branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || "main";
+var branch = process.env.BRANCH || process.env.VERCEL_GIT_COMMIT_REF || "deploy";
 var config_default = defineConfig({
   branch,
-  clientId: null,
-  token: null,
+  clientId: process.env.TINA_CLIENT_ID || "582f77ff-af6e-4fec-a333-84356734a35d",
+  token: process.env.TINA_TOKEN || null,
   build: {
     outputFolder: "admin",
     publicFolder: "public"
