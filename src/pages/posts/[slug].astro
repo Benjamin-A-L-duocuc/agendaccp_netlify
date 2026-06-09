@@ -1,16 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
   return posts.map(post => ({
-    params: { slug: post.id },
+    params: { slug: post.id.replace('posts/', '') },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-const { Content } = await (post as any).render();
+const { Content } = await render(post);
 ---
 
 <html lang="es">
