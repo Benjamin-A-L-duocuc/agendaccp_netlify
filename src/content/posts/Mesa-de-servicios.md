@@ -1,0 +1,8 @@
+---
+title: Mesa de servicios
+description: Canal de soporte para requerimientos generales y derivación de atención.
+phone: +56 44 2201098
+scheduleWeekdays: '07:00 - 23:00'
+scheduleSaturday: '07:00 - 18:00'
+---
+
