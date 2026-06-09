@@ -14,7 +14,8 @@ export const PostsPartsFragmentDoc = gql`
   scheduleWeekdays
   scheduleSaturday
   scheduleSunday
-  status
+  email
+  whatsapp
 }
     `;
 export const PostsDocument = gql`
@@ -104,7 +105,7 @@ const generateRequester = (client) => {
 export const ExperimentalGetTinaClient = () => getSdk(
   generateRequester(
     createClient({
-      url: "https://content.tinajs.io/2.4/content/582f77ff-af6e-4fec-a333-84356734a35d/github/agent-6a27c7fa87ff85a3779a9e9f",
+      url: "http://localhost:4001/graphql",
       queries
     })
   )

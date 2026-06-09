@@ -10,7 +10,8 @@ const posts = defineCollection({
     scheduleWeekdays: z.string().optional(),
     scheduleSaturday: z.string().optional(),
     scheduleSunday: z.string().optional(),
-    status: z.string().optional(),
+    email: z.string().optional(),
+    whatsapp: z.string().optional(),
   }),
 });
 

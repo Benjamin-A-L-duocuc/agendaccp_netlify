@@ -1,6 +1,6 @@
 // tina/config.ts
 import { defineConfig } from "tinacms";
-var branch = process.env.BRANCH || process.env.VERCEL_GIT_COMMIT_REF || "deploy";
+var branch = process.env.TINA_BRANCH || process.env.VERCEL_GIT_COMMIT_REF || "deploy";
 var config_default = defineConfig({
   branch,
   clientId: process.env.TINA_CLIENT_ID || "582f77ff-af6e-4fec-a333-84356734a35d",
@@ -46,24 +46,51 @@ var config_default = defineConfig({
             type: "string",
             name: "scheduleWeekdays",
             label: "Horario Lun-Vie",
-            required: false
+            required: false,
+            ui: {
+              validate: (value) => {
+                if (value && !/^\d{2}:\d{2}\s*[–-]\s*\d{2}:\d{2}$/.test(value)) {
+                  return "Formato debe ser HH:MM \u2013 HH:MM (ej: 09:00 \u2013 18:00)";
+                }
+              }
+            }
           },
           {
             type: "string",
             name: "scheduleSaturday",
             label: "Horario S\xE1b",
-            required: false
+            required: false,
+            ui: {
+              validate: (value) => {
+                if (value && !/^\d{2}:\d{2}\s*[–-]\s*\d{2}:\d{2}$/.test(value)) {
+                  return "Formato debe ser HH:MM \u2013 HH:MM (ej: 09:00 \u2013 18:00)";
+                }
+              }
+            }
           },
           {
             type: "string",
             name: "scheduleSunday",
             label: "Horario Dom",
+            required: false,
+            ui: {
+              validate: (value) => {
+                if (value && !/^\d{2}:\d{2}\s*[–-]\s*\d{2}:\d{2}$/.test(value)) {
+                  return "Formato debe ser HH:MM \u2013 HH:MM (ej: 09:00 \u2013 18:00)";
+                }
+              }
+            }
+          },
+          {
+            type: "string",
+            name: "email",
+            label: "Correo electr\xF3nico",
             required: false
           },
           {
             type: "string",
-            name: "status",
-            label: "Estado (ej: Disponible, Fuera de horario)",
+            name: "whatsapp",
+            label: "WhatsApp (n\xFAmero)",
             required: false
           }
         ]

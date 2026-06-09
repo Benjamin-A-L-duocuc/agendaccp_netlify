@@ -8,7 +8,8 @@ interface Props {
       scheduleWeekdays?: string;
       scheduleSaturday?: string;
       scheduleSunday?: string;
-      status?: string;
+      email?: string;
+      whatsapp?: string;
     }
   }
 }
@@ -59,5 +60,17 @@ const { data } = post;
       <div class="slider-text">Desliza para llamar →</div>
       <div class="slider-btn">☎</div>
     </div>
+    {data.whatsapp && (
+      <div class="slider-call mt-2" data-whatsapp={data.whatsapp.replace(/\s+/g, '')}>
+        <div class="slider-text">Desliza para WhatsApp →</div>
+        <div class="slider-btn">☎</div>
+      </div>
+    )}
+    {data.email && (
+      <div class="slider-call mt-2" data-email={data.email}>
+        <div class="slider-text">Desliza para correo →</div>
+        <div class="slider-btn">✉</div>
+      </div>
+    )}
   </article>
 </div>

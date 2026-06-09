@@ -60,7 +60,9 @@ const posts = await getCollection('posts');
       *{ box-sizing:border-box; }
       body{
         margin:0;
+        min-height:100vh;
         background: radial-gradient(circle at top left, rgba(244,180,0,.08), transparent 28%), linear-gradient(180deg, rgba(255,255,255,.12), transparent 20%), var(--bg);
+        background-repeat:no-repeat;
         color:var(--text);
         font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         transition:background .25s ease, color .25s ease;
@@ -288,8 +290,9 @@ const posts = await getCollection('posts');
 
       function isWithinRange(range: string | null | undefined, currentMinutes: number) {
         if (!range) return false;
-        const [start, end] = range.split('-');
-        return currentMinutes >= timeToMinutes(start) && currentMinutes <= timeToMinutes(end);
+        const m = range.match(/(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})/);
+        if (!m) return false;
+        return currentMinutes >= timeToMinutes(m[1]) && currentMinutes <= timeToMinutes(m[2]);
       }
 
       function updateScheduleStatus() {
@@ -326,11 +329,24 @@ const posts = await getCollection('posts');
       updateScheduleStatus();
       setInterval(updateScheduleStatus, 60000);
 
-      document.querySelectorAll('.slider-call').forEach((slider) => {
-        const sliderEl = slider as HTMLElement;
+      function setupSlider(sliderEl: HTMLElement) {
         const btn = sliderEl.querySelector('.slider-btn') as HTMLElement | null;
         const label = sliderEl.querySelector('.slider-text') as HTMLElement | null;
-        let dragging = false, startX = 0, currentX = 0, callLocked = false;
+        let dragging = false, startX = 0, currentX = 0, locked = false;
+
+        const getAction = () => {
+          if (sliderEl.dataset.phone) return { url: `tel:${sliderEl.dataset.phone}`, label: 'Llamando…' };
+          if (sliderEl.dataset.whatsapp) return { url: `https://wa.me/${sliderEl.dataset.whatsapp}`, label: 'Abriendo WhatsApp…' };
+          if (sliderEl.dataset.email) return { url: `mailto:${sliderEl.dataset.email}`, label: 'Abriendo correo…' };
+          return null;
+        };
+
+        const getBaseText = () => {
+          if (sliderEl.dataset.phone) return 'Desliza para llamar →';
+          if (sliderEl.dataset.whatsapp) return 'Desliza para WhatsApp →';
+          if (sliderEl.dataset.email) return 'Desliza para correo →';
+          return '';
+        };
 
         const maxX = () => sliderEl.clientWidth - (btn?.clientWidth || 0) - 12;
         const setX = (x: number) => {
@@ -341,42 +357,44 @@ const posts = await getCollection('posts');
 
         const reset = () => {
           dragging = false;
-          if (callLocked) return;
+          if (locked) return;
           if (btn) btn.style.transition = 'transform .25s ease';
           setX(0);
           sliderEl.classList.remove('active');
-          if (label) label.textContent = 'Desliza para llamar →';
+          if (label) label.textContent = getBaseText();
           setTimeout(() => { if (btn) btn.style.transition = ''; }, 250);
         };
 
-        const confirmCall = () => {
-          if (callLocked) return;
-          callLocked = true; dragging = false;
+        const confirmAction = () => {
+          if (locked) return;
+          const action = getAction();
+          if (!action) return;
+          locked = true; dragging = false;
           sliderEl.classList.add('active');
-          if (label) label.textContent = 'Llamando…';
+          if (label) label.textContent = action.label;
           setX(maxX());
-          setTimeout(() => { window.location.href = `tel:${sliderEl.dataset.phone}`; }, 320);
+          setTimeout(() => { window.location.href = action.url; }, 320);
           setTimeout(() => {
             if (btn) btn.style.transition = 'transform .25s ease';
             setX(0);
             sliderEl.classList.remove('active');
-            if (label) label.textContent = 'Desliza para llamar →';
+            if (label) label.textContent = getBaseText();
             setTimeout(() => { if (btn) btn.style.transition = ''; }, 250);
-            callLocked = false;
+            locked = false;
           }, 2200);
         };
 
         const pointerDown = (clientX: number) => {
-          if (callLocked) return;
+          if (locked) return;
           dragging = true; startX = clientX - currentX; 
           if (btn) btn.style.transition = 'none';
         };
 
         const pointerMove = (clientX: number) => {
-          if (!dragging || callLocked) return;
+          if (!dragging || locked) return;
           const x = clientX - startX;
           setX(x);
-          if (currentX >= maxX() - 8) confirmCall();
+          if (currentX >= maxX() - 8) confirmAction();
         };
 
         if (btn) {
@@ -385,10 +403,12 @@ const posts = await getCollection('posts');
         }
         
         window.addEventListener('mousemove', (e: MouseEvent) => pointerMove(e.clientX));
-        window.addEventListener('mouseup', () => { if (dragging && !callLocked) reset(); });
+        window.addEventListener('mouseup', () => { if (dragging && !locked) reset(); });
         window.addEventListener('touchmove', (e: TouchEvent) => pointerMove(e.touches[0].clientX), { passive: true });
-        window.addEventListener('touchend', () => { if (dragging && !callLocked) reset(); });
-      });
+        window.addEventListener('touchend', () => { if (dragging && !locked) reset(); });
+      }
+
+      document.querySelectorAll('.slider-call').forEach((s) => setupSlider(s as HTMLElement));
     </script>
   </body>
 </html>

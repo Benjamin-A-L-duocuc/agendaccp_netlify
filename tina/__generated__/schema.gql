@@ -94,7 +94,8 @@ type Posts implements Node & Document {
   scheduleWeekdays: String
   scheduleSaturday: String
   scheduleSunday: String
-  status: String
+  email: String
+  whatsapp: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -114,7 +115,8 @@ input PostsFilter {
   scheduleWeekdays: StringFilter
   scheduleSaturday: StringFilter
   scheduleSunday: StringFilter
-  status: StringFilter
+  email: StringFilter
+  whatsapp: StringFilter
 }
 
 type PostsConnectionEdges {
@@ -154,7 +156,8 @@ input PostsMutation {
   scheduleWeekdays: String
   scheduleSaturday: String
   scheduleSunday: String
-  status: String
+  email: String
+  whatsapp: String
 }
 
 schema {

@@ -48,23 +48,50 @@ export default defineConfig({
             name: "scheduleWeekdays",
             label: "Horario Lun-Vie",
             required: false,
+            ui: {
+              validate: (value) => {
+                if (value && !/^\d{2}:\d{2}\s*[–-]\s*\d{2}:\d{2}$/.test(value)) {
+                  return "Formato debe ser HH:MM – HH:MM (ej: 09:00 – 18:00)";
+                }
+              },
+            },
           },
           {
             type: "string",
             name: "scheduleSaturday",
             label: "Horario Sáb",
             required: false,
+            ui: {
+              validate: (value) => {
+                if (value && !/^\d{2}:\d{2}\s*[–-]\s*\d{2}:\d{2}$/.test(value)) {
+                  return "Formato debe ser HH:MM – HH:MM (ej: 09:00 – 18:00)";
+                }
+              },
+            },
           },
           {
             type: "string",
             name: "scheduleSunday",
             label: "Horario Dom",
             required: false,
+            ui: {
+              validate: (value) => {
+                if (value && !/^\d{2}:\d{2}\s*[–-]\s*\d{2}:\d{2}$/.test(value)) {
+                  return "Formato debe ser HH:MM – HH:MM (ej: 09:00 – 18:00)";
+                }
+              },
+            },
           },
           {
             type: "string",
-            name: "status",
-            label: "Estado (ej: Disponible, Fuera de horario)",
+            name: "email",
+            label: "Correo electrónico",
+            required: false,
+          },
+          {
+            type: "string",
+            name: "whatsapp",
+            label: "WhatsApp (número)",
             required: false,
           },
         ],

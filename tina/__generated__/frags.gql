@@ -6,5 +6,6 @@ fragment PostsParts on Posts {
   scheduleWeekdays
   scheduleSaturday
   scheduleSunday
-  status
+  email
+  whatsapp
 }
