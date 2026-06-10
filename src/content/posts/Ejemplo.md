@@ -1,5 +1,5 @@
 ---
-title: Enfermería
+title: Sala Primeros Auxilios
 description: 'Ubicación: 1er piso bloque E, detrás de Caja'
 phone: '+56412268318'
 scheduleWeekdays: '08:30 - 22:45'
