@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "tinacms dev -c \"astro dev\"",
     "start": "astro dev",
-    "build": "tinacms build && astro build",
+    "build": "if [ -n \"$TINA_TOKEN\" ]; then tinacms build; else echo 'Skipping Tina build (no TINA_TOKEN set)'; fi && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
