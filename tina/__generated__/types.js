@@ -11,6 +11,14 @@ export const PostsPartsFragmentDoc = gql`
   title
   description
   phone
+  phones {
+    __typename
+    number
+    timeLabel
+    blockLabel
+  }
+  moreInfo
+  location
   scheduleWeekdays
   scheduleSaturday
   scheduleSunday

@@ -165,11 +165,21 @@ export type CollectionDocumentsArgs = {
 
 export type DocumentNode = Posts | Folder;
 
+export type PostsPhones = {
+  __typename?: 'PostsPhones';
+  number: Scalars['String']['output'];
+  timeLabel?: Maybe<Scalars['String']['output']>;
+  blockLabel?: Maybe<Scalars['String']['output']>;
+};
+
 export type Posts = Node & Document & {
   __typename?: 'Posts';
   title: Scalars['String']['output'];
   description: Scalars['String']['output'];
-  phone: Scalars['String']['output'];
+  phone?: Maybe<Scalars['String']['output']>;
+  phones?: Maybe<Array<Maybe<PostsPhones>>>;
+  moreInfo?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Scalars['String']['output']>;
   scheduleWeekdays?: Maybe<Scalars['String']['output']>;
   scheduleSaturday?: Maybe<Scalars['String']['output']>;
   scheduleSunday?: Maybe<Scalars['String']['output']>;
@@ -187,10 +197,19 @@ export type StringFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+export type PostsPhonesFilter = {
+  number?: InputMaybe<StringFilter>;
+  timeLabel?: InputMaybe<StringFilter>;
+  blockLabel?: InputMaybe<StringFilter>;
+};
+
 export type PostsFilter = {
   title?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
   phone?: InputMaybe<StringFilter>;
+  phones?: InputMaybe<PostsPhonesFilter>;
+  moreInfo?: InputMaybe<StringFilter>;
+  location?: InputMaybe<StringFilter>;
   scheduleWeekdays?: InputMaybe<StringFilter>;
   scheduleSaturday?: InputMaybe<StringFilter>;
   scheduleSunday?: InputMaybe<StringFilter>;
@@ -276,10 +295,19 @@ export type DocumentMutation = {
   posts?: InputMaybe<PostsMutation>;
 };
 
+export type PostsPhonesMutation = {
+  number?: InputMaybe<Scalars['String']['input']>;
+  timeLabel?: InputMaybe<Scalars['String']['input']>;
+  blockLabel?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type PostsMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
+  phones?: InputMaybe<Array<InputMaybe<PostsPhonesMutation>>>;
+  moreInfo?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
   scheduleWeekdays?: InputMaybe<Scalars['String']['input']>;
   scheduleSaturday?: InputMaybe<Scalars['String']['input']>;
   scheduleSunday?: InputMaybe<Scalars['String']['input']>;
@@ -287,14 +315,14 @@ export type PostsMutation = {
   whatsapp?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type PostsPartsFragment = { __typename: 'Posts', title: string, description: string, phone: string, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null };
+export type PostsPartsFragment = { __typename: 'Posts', title: string, description: string, phone?: string | null, moreInfo?: string | null, location?: string | null, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, phones?: Array<{ __typename: 'PostsPhones', number: string, timeLabel?: string | null, blockLabel?: string | null } | null> | null };
 
 export type PostsQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: { __typename: 'Posts', id: string, title: string, description: string, phone: string, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type PostsQuery = { __typename?: 'Query', posts: { __typename: 'Posts', id: string, title: string, description: string, phone?: string | null, moreInfo?: string | null, location?: string | null, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, phones?: Array<{ __typename: 'PostsPhones', number: string, timeLabel?: string | null, blockLabel?: string | null } | null> | null } };
 
 export type PostsConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -306,7 +334,7 @@ export type PostsConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PostsConnectionQuery = { __typename?: 'Query', postsConnection: { __typename?: 'PostsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PostsConnectionEdges', cursor: string, node?: { __typename: 'Posts', id: string, title: string, description: string, phone: string, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type PostsConnectionQuery = { __typename?: 'Query', postsConnection: { __typename?: 'PostsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PostsConnectionEdges', cursor: string, node?: { __typename: 'Posts', id: string, title: string, description: string, phone?: string | null, moreInfo?: string | null, location?: string | null, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, phones?: Array<{ __typename: 'PostsPhones', number: string, timeLabel?: string | null, blockLabel?: string | null } | null> | null } | null } | null> | null } };
 
 export const PostsPartsFragmentDoc = gql`
     fragment PostsParts on Posts {
@@ -314,6 +342,14 @@ export const PostsPartsFragmentDoc = gql`
   title
   description
   phone
+  phones {
+    __typename
+    number
+    timeLabel
+    blockLabel
+  }
+  moreInfo
+  location
   scheduleWeekdays
   scheduleSaturday
   scheduleSunday

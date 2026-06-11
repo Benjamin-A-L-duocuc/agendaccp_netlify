@@ -134,6 +134,7 @@ const posts = await getCollection('posts');
       .place h3{ margin:0 0 6px; font-size:1.45rem; font-weight:400; color:var(--place-color); }
       .contact-description{ max-width:92%; margin:4px auto 6px; text-align:center; font-size:.95rem; font-weight:500; line-height:1.4; color:var(--description-color); opacity:.9; }
       .phone-number{ margin:6px 0 8px; font-size:2rem; font-weight:900; text-align:center; letter-spacing:.03em; line-height:1.1; color:var(--text); }
+      .contact-location{ margin:4px auto 6px; text-align:center; font-size:.85rem; font-weight:600; color:var(--muted); }
 
       /* =========================================================
          ESTADO DE HORARIO
@@ -161,6 +162,24 @@ const posts = await getCollection('posts');
       .chip-time{ font-weight:700; }
 
       /* =========================================================
+         MÁS INFORMACIÓN
+         ========================================================= */
+      .more-info{ margin-top:6px; margin-bottom:4px; border:none; background:transparent; }
+      .more-info-summary{
+        list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:5px;
+        font-size:.82rem; font-weight:600; color:var(--muted); user-select:none; padding:4px 0;
+        border-radius:8px; transition:color .2s;
+      }
+      .more-info-summary:hover{ color:var(--place-color); }
+      .more-info-summary::-webkit-details-marker{ display:none; }
+      .more-info-chevron{ display:inline-block; transition:transform .2s ease; font-size:.7rem; }
+      .more-info[open] .more-info-chevron{ transform:rotate(90deg); }
+      .more-info-content{
+        font-size:.88rem; line-height:1.5; color:var(--description-color);
+        padding:6px 0 2px 18px; border-left:2px solid var(--line); margin-top:2px; margin-left:3px;
+      }
+
+      /* =========================================================
          SLIDER PARA LLAMAR
          ========================================================= */
       .slider-call{
@@ -183,6 +202,34 @@ const posts = await getCollection('posts');
       .slider-call.active .slider-text{ color:var(--success); }
       .slider-call.active .slider-btn{ background:linear-gradient(135deg, #25cf68, #17a34a); }
 
+      /* =========================================================
+         REJILLA DE BOTONES TELÉFONO
+         ========================================================= */
+      .phone-grid{ display:grid; gap:8px; margin-top:14px; }
+      .phone-grid-2{ grid-template-columns:1fr 1fr; }
+      .phone-grid-3{ grid-template-columns:1fr 1fr; }
+      .phone-grid-4{ grid-template-columns:1fr 1fr; }
+      .phone-btn{
+        display:flex; flex-direction:column; align-items:center; justify-content:center;
+        padding:10px 14px; border-radius:999px; cursor:pointer; text-decoration:none !important;
+        color:#000000; font-weight:700; border:1px solid rgba(0,0,0,.08);
+        box-shadow:0 8px 18px rgba(0,0,0,.14), inset 0 2px 0 rgba(255,255,255,.22);
+        transition:transform .15s ease, box-shadow .15s ease; min-height:56px;
+      }
+      .phone-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 24px rgba(0,0,0 .18); }
+      .phone-btn:active{ transform:translateY(0); }
+      .phone-btn-full{ grid-column:1 / -1; }
+      .phone-btn-label{ font-size:.88rem; line-height:1.2; color: black;}
+      .phone-btn-num{ font-size:.9rem; opacity:.9; margin-top:2px; font-weight:600; color:black;}
+
+      .phone-btn-general{ background:linear-gradient(135deg, #eab308, #ca8a04); }
+      .phone-btn-diurno{ background:linear-gradient(135deg, #eab308, #ca8a04); }
+      .phone-btn-vespertino{ background:linear-gradient(135deg, #3b82f6, #2563eb); }
+      .phone-btn-bloque-h{ background:linear-gradient(135deg, #f59e0b, #d97706); }
+      .phone-btn-bloque-b{ background:linear-gradient(135deg, #14b8a6, #0d9488); }
+      .phone-btn-combined-diurno{ background:linear-gradient(135deg, #f59e0b, #d97706); }
+      .phone-btn-combined-vespertino{ background:linear-gradient(135deg, #14b8a6, #0d9488); }
+
       @media (max-width: 767.98px){
         .app-shell{ padding-top:1rem !important; padding-bottom:1.5rem !important; }
         .header{ padding:16px; border-radius:24px; }
@@ -203,6 +250,11 @@ const posts = await getCollection('posts');
         .slider-call{ height:76px; }
         .slider-btn{ width:64px; height:64px; font-size:25px; }
         .slider-text{ font-size:.95rem; padding:0 84px; }
+        .contact-location{ font-size:.8rem; }
+        .phone-btn{ min-height:50px; padding:8px 12px; }
+        .phone-btn-label{ font-size:.82rem; }
+        .phone-btn-num{ font-size:.82rem; }
+        .more-info-content{ font-size:.84rem; }
       }
     </style>
   </head>

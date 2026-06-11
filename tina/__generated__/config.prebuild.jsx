@@ -39,8 +39,54 @@ var config_default = defineConfig({
           {
             type: "string",
             name: "phone",
-            label: "Tel\xE9fono",
-            required: true
+            label: "Tel\xE9fono (simple)",
+            required: false
+          },
+          {
+            type: "object",
+            name: "phones",
+            label: "Tel\xE9fonos m\xFAltiples",
+            list: true,
+            ui: {
+              itemProps: (item) => ({
+                label: item?.number || "Nuevo tel\xE9fono"
+              })
+            },
+            fields: [
+              {
+                type: "string",
+                name: "number",
+                label: "N\xFAmero",
+                required: true
+              },
+              {
+                type: "string",
+                name: "timeLabel",
+                label: "Horario",
+                options: ["General", "Diurno", "Vespertino"]
+              },
+              {
+                type: "string",
+                name: "blockLabel",
+                label: "Bloque",
+                options: ["General", "Bloque H", "Bloque B"]
+              }
+            ]
+          },
+          {
+            type: "string",
+            name: "moreInfo",
+            label: "M\xE1s informaci\xF3n",
+            required: false,
+            ui: {
+              component: "textarea"
+            }
+          },
+          {
+            type: "string",
+            name: "location",
+            label: "Ubicaci\xF3n",
+            required: false
           },
           {
             type: "string",

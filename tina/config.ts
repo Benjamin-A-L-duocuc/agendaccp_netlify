@@ -40,8 +40,54 @@ export default defineConfig({
           {
             type: "string",
             name: "phone",
-            label: "Teléfono",
-            required: true,
+            label: "Teléfono (simple)",
+            required: false,
+          },
+          {
+            type: "object",
+            name: "phones",
+            label: "Teléfonos múltiples",
+            list: true,
+            ui: {
+              itemProps: (item) => ({
+                label: item?.number || 'Nuevo teléfono',
+              }),
+            },
+            fields: [
+              {
+                type: "string",
+                name: "number",
+                label: "Número",
+                required: true,
+              },
+              {
+                type: "string",
+                name: "timeLabel",
+                label: "Horario",
+                options: ["General", "Diurno", "Vespertino"],
+              },
+              {
+                type: "string",
+                name: "blockLabel",
+                label: "Bloque",
+                options: ["General", "Bloque H", "Bloque B"],
+              },
+            ],
+          },
+          {
+            type: "string",
+            name: "moreInfo",
+            label: "Más información",
+            required: false,
+            ui: {
+              component: "textarea",
+            },
+          },
+          {
+            type: "string",
+            name: "location",
+            label: "Ubicación",
+            required: false,
           },
           {
             type: "string",

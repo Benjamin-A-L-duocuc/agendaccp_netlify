@@ -87,10 +87,19 @@ type Collection {
 
 union DocumentNode = Posts | Folder
 
+type PostsPhones {
+  number: String!
+  timeLabel: String
+  blockLabel: String
+}
+
 type Posts implements Node & Document {
   title: String!
   description: String!
-  phone: String!
+  phone: String
+  phones: [PostsPhones]
+  moreInfo: String
+  location: String
   scheduleWeekdays: String
   scheduleSaturday: String
   scheduleSunday: String
@@ -108,10 +117,19 @@ input StringFilter {
   in: [String]
 }
 
+input PostsPhonesFilter {
+  number: StringFilter
+  timeLabel: StringFilter
+  blockLabel: StringFilter
+}
+
 input PostsFilter {
   title: StringFilter
   description: StringFilter
   phone: StringFilter
+  phones: PostsPhonesFilter
+  moreInfo: StringFilter
+  location: StringFilter
   scheduleWeekdays: StringFilter
   scheduleSaturday: StringFilter
   scheduleSunday: StringFilter
@@ -149,10 +167,19 @@ input DocumentMutation {
   posts: PostsMutation
 }
 
+input PostsPhonesMutation {
+  number: String
+  timeLabel: String
+  blockLabel: String
+}
+
 input PostsMutation {
   title: String
   description: String
   phone: String
+  phones: [PostsPhonesMutation]
+  moreInfo: String
+  location: String
   scheduleWeekdays: String
   scheduleSaturday: String
   scheduleSunday: String
