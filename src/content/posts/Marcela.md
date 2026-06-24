@@ -1,6 +1,6 @@
 ---
 title: Coordinación Docente
-description: 'EXCLUSIVO DOCENTES - Apoyo para consultas docentes, coordinación académica y otros.'
+description: 'Apoyo para consultas docentes, coordinación académica y otros.'
 phone: ''
 phones:
   - number: 41 2268 272
