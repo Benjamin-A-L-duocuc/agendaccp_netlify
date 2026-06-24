@@ -7,6 +7,9 @@ phones:
   - number: 41 2268390
     timeLabel: General
     blockLabel: General
+  - number: 41 2268 911
+    timeLabel: General
+    blockLabel: General
 scheduleWeekdays: '08:30 - 22:45'
 scheduleSaturday: '08:30 - 16:00'
 scheduleSunday: ''
