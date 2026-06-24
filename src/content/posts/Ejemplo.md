@@ -1,6 +1,6 @@
 ---
 title: Sala Primeros Auxilios
-description: Primeros auxilios en caso de accidentes en sede
+description: Primeros auxilios en caso de accidentes
 phone: 41 2268 318
 location: 'Bloque E, 1er piso, detras de caja'
 scheduleWeekdays: '08:30 - 22:45'
