@@ -6,5 +6,8 @@ phones:
   - number: 41 2268 310
     timeLabel: General
     blockLabel: Bloque B
+  - number: 41 2268 323
+    timeLabel: General
+    blockLabel: Bloque H
 ---
 
