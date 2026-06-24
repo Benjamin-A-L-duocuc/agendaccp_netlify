@@ -1,6 +1,6 @@
 ---
 title: Financiamiento
-description: Apoyo al estudiante en temas de financiamiento
+description: Apoyo para estudiantes en temas de financiamiento
 phone: ''
 phones:
   - number: 41 2268 206
