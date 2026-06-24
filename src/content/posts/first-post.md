@@ -13,7 +13,7 @@ phones:
 scheduleWeekdays: '08:30 - 22:45'
 scheduleSaturday: '08:30 - 16:00'
 scheduleSunday: ''
-email: sd_conce@duoc.cl
+email: sd_concepcion@duoc.cl
 whatsapp: ''
 ---
 
