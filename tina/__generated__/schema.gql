@@ -105,6 +105,7 @@ type Posts implements Node & Document {
   scheduleSunday: String
   email: String
   whatsapp: String
+  links: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -135,6 +136,7 @@ input PostsFilter {
   scheduleSunday: StringFilter
   email: StringFilter
   whatsapp: StringFilter
+  links: StringFilter
 }
 
 type PostsConnectionEdges {
@@ -185,6 +187,7 @@ input PostsMutation {
   scheduleSunday: String
   email: String
   whatsapp: String
+  links: String
 }
 
 schema {

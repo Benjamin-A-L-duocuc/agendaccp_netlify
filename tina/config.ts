@@ -140,6 +140,16 @@ export default defineConfig({
             label: "WhatsApp (número)",
             required: false,
           },
+          {
+            type: "string",
+            name: "links",
+            label: "Enlaces",
+            required: false,
+            ui: {
+              component: "textarea",
+              description: "Escribe cada enlace en una línea con el formato: Texto | https://... (ej: Portal Duoc | https://portal.duoc.cl)",
+            },
+          },
         ],
       },
     ],

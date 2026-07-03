@@ -24,6 +24,7 @@ export const PostsPartsFragmentDoc = gql`
   scheduleSunday
   email
   whatsapp
+  links
 }
     `;
 export const PostsDocument = gql`

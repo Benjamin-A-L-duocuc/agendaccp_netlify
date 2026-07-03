@@ -16,4 +16,5 @@ fragment PostsParts on Posts {
   scheduleSunday
   email
   whatsapp
+  links
 }

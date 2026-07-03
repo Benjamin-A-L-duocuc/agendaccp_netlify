@@ -21,6 +21,7 @@ const posts = defineCollection({
     scheduleSunday: z.string().optional(),
     email: z.string().optional(),
     whatsapp: z.string().optional(),
+    links: z.string().optional(),
   }),
 });
 

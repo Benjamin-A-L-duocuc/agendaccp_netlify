@@ -19,12 +19,23 @@ interface Props {
       scheduleSunday?: string;
       email?: string;
       whatsapp?: string;
+      links?: string;
     }
   }
 }
 
 const { post } = Astro.props;
 const { data } = post;
+
+const parsedLinks: { text: string; url: string }[] = (data.links || '')
+  .split('\n')
+  .map(line => line.trim())
+  .filter(line => line.includes('|'))
+  .map(line => {
+    const [text, ...urlParts] = line.split('|').map(s => s.trim());
+    return { text, url: urlParts.join('|').trim() };
+  })
+  .filter(l => l.text && l.url);
 
 function norm(s: string | undefined | null): string {
   return (s || '').toLowerCase().replace(/\s+/g, '-');
@@ -121,6 +132,15 @@ function phoneNumber(entry: PhoneEntry): string {
           </summary>
           <div class="more-info-content">{data.moreInfo}</div>
         </details>
+      )}
+      {parsedLinks.length > 0 && (
+        <div class="links-grid">
+          {parsedLinks.map(link => (
+            <a href={link.url} target="_blank" rel="noopener noreferrer" class="link-btn">
+              {link.text}
+            </a>
+          ))}
+        </div>
       )}
     </div>
     <div>

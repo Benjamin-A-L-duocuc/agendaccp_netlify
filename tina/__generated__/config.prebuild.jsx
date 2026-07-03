@@ -138,6 +138,16 @@ var config_default = defineConfig({
             name: "whatsapp",
             label: "WhatsApp (n\xFAmero)",
             required: false
+          },
+          {
+            type: "string",
+            name: "links",
+            label: "Enlaces",
+            required: false,
+            ui: {
+              component: "textarea",
+              description: "Escribe cada enlace en una l\xEDnea con el formato: Texto | https://... (ej: Portal Duoc | https://portal.duoc.cl)"
+            }
           }
         ]
       }

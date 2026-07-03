@@ -185,6 +185,7 @@ export type Posts = Node & Document & {
   scheduleSunday?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
   whatsapp?: Maybe<Scalars['String']['output']>;
+  links?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -215,6 +216,7 @@ export type PostsFilter = {
   scheduleSunday?: InputMaybe<StringFilter>;
   email?: InputMaybe<StringFilter>;
   whatsapp?: InputMaybe<StringFilter>;
+  links?: InputMaybe<StringFilter>;
 };
 
 export type PostsConnectionEdges = {
@@ -313,16 +315,17 @@ export type PostsMutation = {
   scheduleSunday?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   whatsapp?: InputMaybe<Scalars['String']['input']>;
+  links?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type PostsPartsFragment = { __typename: 'Posts', title: string, description: string, phone?: string | null, moreInfo?: string | null, location?: string | null, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, phones?: Array<{ __typename: 'PostsPhones', number: string, timeLabel?: string | null, blockLabel?: string | null } | null> | null };
+export type PostsPartsFragment = { __typename: 'Posts', title: string, description: string, phone?: string | null, moreInfo?: string | null, location?: string | null, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, links?: string | null, phones?: Array<{ __typename: 'PostsPhones', number: string, timeLabel?: string | null, blockLabel?: string | null } | null> | null };
 
 export type PostsQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: { __typename: 'Posts', id: string, title: string, description: string, phone?: string | null, moreInfo?: string | null, location?: string | null, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, phones?: Array<{ __typename: 'PostsPhones', number: string, timeLabel?: string | null, blockLabel?: string | null } | null> | null } };
+export type PostsQuery = { __typename?: 'Query', posts: { __typename: 'Posts', id: string, title: string, description: string, phone?: string | null, moreInfo?: string | null, location?: string | null, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, links?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, phones?: Array<{ __typename: 'PostsPhones', number: string, timeLabel?: string | null, blockLabel?: string | null } | null> | null } };
 
 export type PostsConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -334,7 +337,7 @@ export type PostsConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PostsConnectionQuery = { __typename?: 'Query', postsConnection: { __typename?: 'PostsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PostsConnectionEdges', cursor: string, node?: { __typename: 'Posts', id: string, title: string, description: string, phone?: string | null, moreInfo?: string | null, location?: string | null, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, phones?: Array<{ __typename: 'PostsPhones', number: string, timeLabel?: string | null, blockLabel?: string | null } | null> | null } | null } | null> | null } };
+export type PostsConnectionQuery = { __typename?: 'Query', postsConnection: { __typename?: 'PostsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PostsConnectionEdges', cursor: string, node?: { __typename: 'Posts', id: string, title: string, description: string, phone?: string | null, moreInfo?: string | null, location?: string | null, scheduleWeekdays?: string | null, scheduleSaturday?: string | null, scheduleSunday?: string | null, email?: string | null, whatsapp?: string | null, links?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, phones?: Array<{ __typename: 'PostsPhones', number: string, timeLabel?: string | null, blockLabel?: string | null } | null> | null } | null } | null> | null } };
 
 export const PostsPartsFragmentDoc = gql`
     fragment PostsParts on Posts {
@@ -355,6 +358,7 @@ export const PostsPartsFragmentDoc = gql`
   scheduleSunday
   email
   whatsapp
+  links
 }
     `;
 export const PostsDocument = gql`
