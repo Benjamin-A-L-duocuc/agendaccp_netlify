@@ -8,7 +8,7 @@ const PostsPhone = z.object({
 });
 
 const posts = defineCollection({
-  loader: glob({ pattern: '**/posts/*.md', base: './src/content' }),
+  loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
