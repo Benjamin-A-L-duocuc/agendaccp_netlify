@@ -104,8 +104,8 @@ const posts = await getCollection('posts');
       .brand-title{ margin:0; font-size:1.35rem; font-weight:900; line-height:1.08; color:#EBAD01; }
       .brand-subtitle{ margin:6px 0 0; font-size:1rem; line-height:1.35; color:var(--muted); }
       .header-actions{ display:flex; align-items:flex-start; justify-content:flex-end; flex-shrink:0; padding-top:2px; }
-      .duoc-logo{ width:100%; max-width:360px; }
-      .duoc-logo-img{ display:block; width:100%; height:auto; }
+      .duoc-logo{ width:100%; max-width:400px; }
+      .duoc-logo-img{ display:block; width:100%; height:auto; aspect-ratio: 1465 / 233; }
       [data-bs-theme="dark"] .duoc-logo-img{ filter:drop-shadow(0 2px 8px rgba(0,0,0,.35)); }
 
       /* =========================================================
@@ -281,7 +281,7 @@ const posts = await getCollection('posts');
         .theme-switch-thumb{ width:30px; height:30px; }
         [data-bs-theme="dark"] .theme-switch-thumb{ transform:translateX(32px); }
         .theme-icon{ width:13px; height:13px; }
-        .duoc-logo{ max-width:240px; }
+        .duoc-logo{ max-width:270px; }
         .place h3{ font-size:1.35rem; }
         .contact-description{ font-size:.92rem; }
         .phone-number{ font-size:2rem; }
@@ -304,7 +304,10 @@ const posts = await getCollection('posts');
         <div class="row mb-3">
           <div class="col-12 col-md-6">
             <div class="duoc-logo">
-              <img id="duocThemeLogo" src="/assets/logo-duoc-sede-san-andres-ccp.svg" alt="Duoc UC" class="duoc-logo-img" data-logo-light="/assets/logo-duoc-sede-san-andres-ccp.svg" data-logo-dark="/assets/logo-duoc-sede-san-andres-ccp-night.svg" fetchpriority="high" loading="eager">
+              <picture class="duoc-logo-picture">
+                <source srcset="/assets/logo-duoc-sede-san-andres-ccp-night.svg" media="(prefers-color-scheme: dark)">
+                <img src="/assets/logo-duoc-sede-san-andres-ccp.svg" alt="Duoc UC" class="duoc-logo-img" width="1465" height="233" fetchpriority="high" loading="eager">
+              </picture>
             </div>
           </div>
         </div>
@@ -347,20 +350,11 @@ const posts = await getCollection('posts');
       const root = document.documentElement;
       const toggleBtn = document.getElementById('themeToggle');
       const themeMeta = document.getElementById('themeColorMeta');
-      const duocThemeLogo = document.getElementById('duocThemeLogo') as HTMLImageElement | null;
-
-      function updateThemeLogo(theme: string) {
-        if (!duocThemeLogo) return;
-        const lightSrc = duocThemeLogo.dataset.logoLight || '';
-        const darkSrc = duocThemeLogo.dataset.logoDark || '';
-        duocThemeLogo.src = theme === 'dark' ? darkSrc : lightSrc;
-      }
 
       function applyTheme(theme: string) {
         root.setAttribute('data-bs-theme', theme);
         localStorage.setItem('duoc-theme', theme);
         if (themeMeta) themeMeta.setAttribute('content', theme === 'dark' ? '#071126' : '#f4b400');
-        updateThemeLogo(theme);
       }
 
       const savedTheme = localStorage.getItem('duoc-theme');
