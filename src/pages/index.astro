@@ -425,7 +425,14 @@ const posts = await getCollection('posts');
         const getAction = () => {
           if (sliderEl.dataset.phone) return { url: `tel:${sliderEl.dataset.phone}`, label: 'Llamando…' };
           if (sliderEl.dataset.whatsapp) return { url: `https://wa.me/${sliderEl.dataset.whatsapp}`, label: 'Abriendo WhatsApp…' };
-          if (sliderEl.dataset.email) return { url: `mailto:${sliderEl.dataset.email}`, label: 'Abriendo correo…' };
+          if (sliderEl.dataset.email) {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const email = sliderEl.dataset.email;
+            const url = isMobile 
+              ? `mailto:${email}` 
+              : `https://mail.google.com/mail/u/0/?extsrc=mailto&url=mailto%3A${encodeURIComponent(email)}`;
+            return { url, label: 'Abriendo correo…' };
+          }
           return null;
         };
 
