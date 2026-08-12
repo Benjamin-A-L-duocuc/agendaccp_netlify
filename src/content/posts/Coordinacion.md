@@ -10,7 +10,7 @@ phones:
     timeLabel: Vespertino
     blockLabel: General
 location: 'Bloque C, 1er piso.'
-scheduleWeekdays: '08:30 - 22:45'
+scheduleWeekdays: '08:30 - 22:00'
 scheduleSaturday: '08:30 - 14:00'
 email: coord.docente_concepcion@duoc.cl
 whatsapp: ''
