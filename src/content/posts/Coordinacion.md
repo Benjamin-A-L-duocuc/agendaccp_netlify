@@ -11,9 +11,8 @@ phones:
     blockLabel: General
 location: 'Bloque C, 1er piso.'
 scheduleWeekdays: '08:30 - 22:45'
-scheduleSaturday: '08:30 - 16:00'
+scheduleSaturday: '08:30 - 14:00'
 email: coord.docente_concepcion@duoc.cl
 whatsapp: ''
 ---
-
 
