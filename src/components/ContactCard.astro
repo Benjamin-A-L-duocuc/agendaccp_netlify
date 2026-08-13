@@ -63,14 +63,7 @@ function formatLabel(entry: PhoneEntry): string | null {
 
 function colorClass(entry: PhoneEntry): string {
   const t = entry.timeLabel && entry.timeLabel !== 'general' ? entry.timeLabel : null;
-  const b = entry.blockLabel && entry.blockLabel !== 'general' ? entry.blockLabel : null;
-  if (t && b) {
-    if (b === 'bloque-b') return `phone-btn-combined-${t}`;
-    return `phone-btn-${t}`;
-  }
-  if (t) return `phone-btn-${t}`;
-  if (b) return `phone-btn-${b}`;
-  return 'phone-btn-general';
+  return t === 'vespertino' ? 'phone-btn-vespertino' : 'phone-btn-general';
 }
 
 function phoneNumber(entry: PhoneEntry): string {

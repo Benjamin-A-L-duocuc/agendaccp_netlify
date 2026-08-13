@@ -107,7 +107,7 @@ const posts = await getCollection('posts');
       .header-actions{ display:flex; align-items:flex-start; justify-content:flex-end; flex-shrink:0; padding-top:2px; }
       .duoc-logo{ width:100%; max-width:400px; position:relative; }
       .logo-light-wrapper, .logo-dark-wrapper { transition: opacity .25s ease; }
-      .logo-light-wrapper svg, .logo-dark-wrapper svg { display:block; width:100%; height:auto; aspect-ratio: 1465 / 233; }
+      .logo-light-wrapper svg, .logo-dark-wrapper svg { display:block; width:100%; height:auto; aspect-ratio: 900 / 200; }
       .logo-dark-wrapper { position:absolute; top:0; left:0; width:100%; opacity: 0; pointer-events: none; }
       [data-bs-theme="dark"] .logo-light-wrapper { opacity: 0; pointer-events: none; }
       [data-bs-theme="dark"] .logo-dark-wrapper { opacity: 1; pointer-events: auto; filter:drop-shadow(0 2px 8px rgba(0,0,0,.35)); }
@@ -144,7 +144,7 @@ const posts = await getCollection('posts');
          ========================================================= */
       .card-custom{ border-radius:24px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow); transition:transform .2s ease, box-shadow .2s ease; }
       .card-custom:hover{ transform:translateY(-2px); }
-      .place h3{ margin:0 0 6px; font-size:1.45rem; font-weight:400; color:var(--place-color); }
+      .place h3{ margin:0 0 6px; font-size:1.45rem; font-weight:700; color:var(--place-color); }
       .contact-description{ max-width:92%; margin:4px auto 6px; text-align:center; font-size:.95rem; font-weight:500; line-height:1.4; color:var(--description-color); opacity:.9; }
       .phone-number{ margin:6px 0 8px; font-size:2rem; font-weight:900; text-align:center; letter-spacing:.03em; line-height:1.1; color:var(--text); }
       .contact-location{ margin:4px auto 6px; text-align:center; font-size:.85rem; font-weight:600; color:var(--muted); }
@@ -245,17 +245,6 @@ const posts = await getCollection('posts');
       }
       .phone-btn-vespertino .phone-btn-label,
       .phone-btn-vespertino .phone-btn-num{ color:#ffffff; }
-      .phone-btn-bloque-h{ background:linear-gradient(135deg, #f59e0b, #d97706); }
-      .phone-btn-bloque-b{ background:linear-gradient(135deg, #14b8a6, #0d9488); }
-      .phone-btn-combined-diurno{ background:linear-gradient(135deg, #f59e0b, #d97706); }
-      .phone-btn-combined-vespertino{
-        background:#0d1425;
-        color:#ffffff;
-        border:1px solid rgba(255,255,255,.15);
-        box-shadow:0 8px 18px rgba(0,0,0,.14);
-      }
-      .phone-btn-combined-vespertino .phone-btn-label,
-      .phone-btn-combined-vespertino .phone-btn-num{ color:#ffffff; }
 
       /* =========================================================
          ENLACES
