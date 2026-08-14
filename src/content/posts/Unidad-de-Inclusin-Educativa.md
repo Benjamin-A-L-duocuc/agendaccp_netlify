@@ -1,10 +1,11 @@
 ---
-title: Coordinación de Inclusión Educativa
-description: Orientación y apoyo para estudiantes que requieren acompañamiento académico inclusivo (PAEDIS)
+title: CoordinaciÃƒÂ³n de InclusiÃƒÂ³n Educativa
+description: OrientaciÃƒÂ³n y apoyo para estudiantes que requieren acompaÃƒÂ±amiento acadÃƒÂ©mico inclusivo (PAEDIS)
 phone: ''
 moreInfo: ''
-scheduleWeekdays: '09:30 - 17:30'
+scheduleMonTue: '09:30 - 17:30'
+scheduleWedFri: '09:30 - 17:30'
 email: cnunezh@duoc.cl
-links: 'Información programa PAEDIS | https://centroayuda.duoc.cl/hc/es-419/sections/38323361292941-Programa-de-Acompa%C3%B1amiento-Estudiantes-en-situaci%C3%B3n-de-Discapacidad-PAEDIS'
+links: 'InformaciÃƒÂ³n programa PAEDIS | https://centroayuda.duoc.cl/hc/es-419/sections/38323361292941-Programa-de-Acompa%C3%B1amiento-Estudiantes-en-situaci%C3%B3n-de-Discapacidad-PAEDIS'
 ---
 

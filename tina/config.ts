@@ -91,8 +91,21 @@ export default defineConfig({
           },
           {
             type: "string",
-            name: "scheduleWeekdays",
-            label: "Horario Lun-Vie",
+            name: "scheduleMonTue",
+            label: "Horario Lun-Mar",
+            required: false,
+            ui: {
+              validate: (value) => {
+                if (value && !/^\d{2}:\d{2}\s*[–-]\s*\d{2}:\d{2}$/.test(value)) {
+                  return "Formato debe ser HH:MM – HH:MM (ej: 09:00 – 18:00)";
+                }
+              },
+            },
+          },
+          {
+            type: "string",
+            name: "scheduleWedFri",
+            label: "Horario Mié-Jue-Vie",
             required: false,
             ui: {
               validate: (value) => {
@@ -106,19 +119,6 @@ export default defineConfig({
             type: "string",
             name: "scheduleSaturday",
             label: "Horario Sáb",
-            required: false,
-            ui: {
-              validate: (value) => {
-                if (value && !/^\d{2}:\d{2}\s*[–-]\s*\d{2}:\d{2}$/.test(value)) {
-                  return "Formato debe ser HH:MM – HH:MM (ej: 09:00 – 18:00)";
-                }
-              },
-            },
-          },
-          {
-            type: "string",
-            name: "scheduleSunday",
-            label: "Horario Dom",
             required: false,
             ui: {
               validate: (value) => {

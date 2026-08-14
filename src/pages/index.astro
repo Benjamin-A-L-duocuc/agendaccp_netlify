@@ -390,9 +390,9 @@ const posts = await getCollection('posts');
             available = true;
           } else {
             let range = null;
-            if (day >= 1 && day <= 5) range = element.dataset.openWeekdays;
+            if (day === 1 || day === 2) range = element.dataset.openMontue;
+            else if (day >= 3 && day <= 5) range = element.dataset.openWedfri;
             else if (day === 6) range = element.dataset.openSaturday;
-            else if (day === 0) range = element.dataset.openSunday;
             available = isWithinRange(range, currentMinutes);
           }
 

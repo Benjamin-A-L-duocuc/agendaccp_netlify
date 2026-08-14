@@ -1,6 +1,6 @@
 ---
-title: Coordinación Docente
-description: 'Apoyo para consultas docentes, coordinación académica y otros.'
+title: CoordinaciÃƒÂ³n Docente
+description: 'Apoyo para consultas docentes, coordinaciÃƒÂ³n acadÃƒÂ©mica y otros.'
 phone: ''
 phones:
   - number: 41 2268 272
@@ -10,7 +10,8 @@ phones:
     timeLabel: Vespertino
     blockLabel: General
 location: 'Bloque C, 1er piso.'
-scheduleWeekdays: '08:30 - 22:00'
+scheduleMonTue: '08:30 - 22:00'
+scheduleWedFri: '08:30 - 22:00'
 scheduleSaturday: '08:30 - 14:00'
 email: coord.docente_concepcion@duoc.cl
 whatsapp: ''

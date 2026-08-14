@@ -19,9 +19,9 @@ export const PostsPartsFragmentDoc = gql`
   }
   moreInfo
   location
-  scheduleWeekdays
+  scheduleMonTue
+  scheduleWedFri
   scheduleSaturday
-  scheduleSunday
   email
   whatsapp
   links

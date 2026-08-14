@@ -11,9 +11,9 @@ fragment PostsParts on Posts {
   }
   moreInfo
   location
-  scheduleWeekdays
+  scheduleMonTue
+  scheduleWedFri
   scheduleSaturday
-  scheduleSunday
   email
   whatsapp
   links

@@ -100,9 +100,9 @@ type Posts implements Node & Document {
   phones: [PostsPhones]
   moreInfo: String
   location: String
-  scheduleWeekdays: String
+  scheduleMonTue: String
+  scheduleWedFri: String
   scheduleSaturday: String
-  scheduleSunday: String
   email: String
   whatsapp: String
   links: String
@@ -131,9 +131,9 @@ input PostsFilter {
   phones: PostsPhonesFilter
   moreInfo: StringFilter
   location: StringFilter
-  scheduleWeekdays: StringFilter
+  scheduleMonTue: StringFilter
+  scheduleWedFri: StringFilter
   scheduleSaturday: StringFilter
-  scheduleSunday: StringFilter
   email: StringFilter
   whatsapp: StringFilter
   links: StringFilter
@@ -182,9 +182,9 @@ input PostsMutation {
   phones: [PostsPhonesMutation]
   moreInfo: String
   location: String
-  scheduleWeekdays: String
+  scheduleMonTue: String
+  scheduleWedFri: String
   scheduleSaturday: String
-  scheduleSunday: String
   email: String
   whatsapp: String
   links: String

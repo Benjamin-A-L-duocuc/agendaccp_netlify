@@ -14,9 +14,9 @@ interface Props {
       phones?: PhoneEntry[];
       moreInfo?: string;
       location?: string;
-      scheduleWeekdays?: string;
+      scheduleMonTue?: string;
+      scheduleWedFri?: string;
       scheduleSaturday?: string;
-      scheduleSunday?: string;
       email?: string;
       whatsapp?: string;
       links?: string;
@@ -91,29 +91,29 @@ function phoneNumber(entry: PhoneEntry): string {
         </div>
       )}
       <div class="schedule-status"
-           data-open-weekdays={data.scheduleWeekdays}
-           data-open-saturday={data.scheduleSaturday}
-           data-open-sunday={data.scheduleSunday}>
+           data-open-montue={data.scheduleMonTue}
+           data-open-wedfri={data.scheduleWedFri}
+           data-open-saturday={data.scheduleSaturday}>
         <span class="status-dot"></span>
         <span class="status-text">Cargando...</span>
       </div>
       <div class="schedule-chips">
-        {data.scheduleWeekdays && (
+        {data.scheduleMonTue && (
           <div class="chip">
-            <span class="chip-label">Lun–Vie</span>
-            <span class="chip-time">{data.scheduleWeekdays}</span>
+            <span class="chip-label">Lun–mar</span>
+            <span class="chip-time">{data.scheduleMonTue}</span>
+          </div>
+        )}
+        {data.scheduleWedFri && (
+          <div class="chip">
+            <span class="chip-label">Mié–Jue–vie</span>
+            <span class="chip-time">{data.scheduleWedFri}</span>
           </div>
         )}
         {data.scheduleSaturday && (
           <div class="chip">
             <span class="chip-label">Sáb</span>
             <span class="chip-time">{data.scheduleSaturday}</span>
-          </div>
-        )}
-        {data.scheduleSunday && (
-          <div class="chip">
-            <span class="chip-label">Dom</span>
-            <span class="chip-time">{data.scheduleSunday}</span>
           </div>
         )}
       </div>
