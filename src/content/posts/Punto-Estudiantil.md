@@ -1,6 +1,6 @@
 ---
 title: Punto Estudiantil
-description: Unidad de apoyo y recreaciÃƒÂ³n del estudiante
+description: Unidad de apoyo y recreación del estudiante
 phone: 41 2268357
 location: 'Bloque A, primer piso'
 scheduleMonTue: '08:30 - 22:00'

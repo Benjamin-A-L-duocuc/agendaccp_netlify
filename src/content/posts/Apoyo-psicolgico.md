@@ -1,6 +1,6 @@
 ---
 title: Apoyo Salud Mental
-description: AtenciÃƒÂ³n psicolÃƒÂ³gica gratuita para estudiantes que lo requieran.
+description: Atención psicológica gratuita para estudiantes que lo requieran.
 phone: 2 2515 7000
 scheduleMonTue: '08:00 - 21:00'
 scheduleWedFri: '08:00 - 21:00'

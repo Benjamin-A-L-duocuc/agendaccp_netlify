@@ -1,7 +1,7 @@
 ---
 date: '2026-06-04T00:00:00.000Z'
 title: Servicios Digitales
-description: 'Soporte para plataformas, cuentas, conectividad y servicios tecnolÃƒÂ³gicos.'
+description: 'Soporte para plataformas, cuentas, conectividad y servicios tecnológicos.'
 phone: ''
 phones:
   - number: 41 2268390

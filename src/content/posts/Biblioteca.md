@@ -1,6 +1,6 @@
 ---
 title: Biblioteca
-description: Recursos bibliogrÃƒÂ¡ficos / salas de estudio
+description: Recursos bibliográficos / salas de estudio
 phone: 41 2268 329
 location: 'Bloque H, 2do piso'
 scheduleMonTue: '08:30 - 22:45'

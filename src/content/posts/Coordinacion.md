@@ -1,6 +1,6 @@
 ---
-title: CoordinaciÃƒÂ³n Docente
-description: 'Apoyo para consultas docentes, coordinaciÃƒÂ³n acadÃƒÂ©mica y otros.'
+title: Coordinación Docente
+description: 'Apoyo para consultas docentes, coordinación académica y otros.'
 phone: ''
 phones:
   - number: 41 2268 272
