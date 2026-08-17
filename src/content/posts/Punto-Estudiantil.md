@@ -8,8 +8,8 @@ scheduleWedFri: '08:30 - 21:00'
 scheduleSaturday: '08:30 - 13:00'
 email: 'maliaga@duoc.cl, vzapata@duoc.cl'
 links: |-
-  Secretaria (r) del Punto: rcidg@duoc.cl
-  Coordinador del Punto diurno: maliaga@duoc.cl
-  Coordinador del Punto vespertino: vzapata@duoc.cl
+  Secretaria (r) del Punto Estudiantil: rcidg@duoc.cl
+  Coordinador del Punto Estudiantil diurno: maliaga@duoc.cl
+  Coordinador del Punto Estudiantil vespertino: vzapata@duoc.cl
 ---
 
