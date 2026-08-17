@@ -9,8 +9,9 @@ phones:
   - number: 41 2268 323
     timeLabel: General
     blockLabel: Bloque H
-scheduleMonTue: '08:30 - 22:45'
-scheduleWedFri: '08:30 - 22:45'
-scheduleSaturday: '08:30 - 16:45'
+scheduleMonTue: '07:30 - 23:00'
+scheduleWedFri: '07:30 - 23:00'
+scheduleSaturday: '07:30 - 17:00'
+email: gtorom@duoc.cl
 ---
 
