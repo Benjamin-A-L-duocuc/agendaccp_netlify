@@ -5,7 +5,7 @@ phone: 41 2268 217
 moreInfo: Asesoría metodológica y tecnopedagógica
 location: Bloque C
 scheduleMonTue: '08:30 - 18:15'
-scheduleWedFri: '08:30 - 18:15'
+scheduleWedFri: '08:30 - 17:15'
 email: mosorior@duoc.cl
 ---
 
