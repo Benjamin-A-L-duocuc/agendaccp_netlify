@@ -1,5 +1,5 @@
 ---
-title: Coordinador General Vespertino
+title: Coordinación General Vespertina
 description: A cargo de la operación vespertina de la sede
 phone: 41 2268308
 location: 'Bloque C, 1er piso'
