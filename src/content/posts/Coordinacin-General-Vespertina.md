@@ -1,6 +1,6 @@
 ---
 title: Coordinación General Vespertina
-description: Área a cargo de la operación vespertina de la sede
+description: Área a cargo de la operación vespertina de sede
 phone: 41 2268308
 location: 'Bloque C, 1er piso'
 scheduleMonTue: '14:00 - 23:00'
